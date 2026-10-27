@@ -1,0 +1,56 @@
+{
+  // 总开关。false 允许浏览器直接测试；true 时必须校验调用方域名。
+  "caller_domain_whitelist_enabled": false,
+
+  // 第三方调用者的精确域名白名单，只填域名，不填协议、端口、路径或通配符。
+  // 不支持泛域名，不支持 IP。下面五条只是参考值。
+  "caller_allowed_domains": [
+    "client-a.example.com",
+    "client-b.example.com",
+    "api.client-c.example.com",
+    "service.client-d.example.com",
+    "test.client-e.example.com"
+  ],
+
+  // 对外 JSON 中的业务 code。HTTP 状态始终为 200。
+  "response_codes": {
+    "success": 200,
+    "invalid_request": 201,
+    "domain_denied": 203,
+    "service_error": 205
+  },
+
+  // 服务端请求上游验证码时的网络限制，与第三方调用者白名单无关。
+  "request_timeout_seconds": 10,
+  "max_upstream_bytes": 5242880,
+  "allow_private_ips": false,
+  "upstream_allowed_domains": [
+    "upstream-a.example.com",
+    "upstream-b.example.com"
+  ],
+  "upstream_allowed_ips": [],
+
+  // 第一个上游验证码接口。
+  "helipay": {
+    "url": "https://upstream-a.example.com/api/captcha",
+    "referer": "https://upstream-a.example.com/login",
+    "origin": "https://upstream-a.example.com",
+    "istoken": "false",
+    "cookie": ""
+  },
+
+  // 第二个上游验证码接口。cache_buster=true 时每次 POST 自动追加随机参数。
+  "ahrcu": {
+    "url": "https://upstream-b.example.com:1443/api/captcha",
+    "referer": "https://upstream-b.example.com:1443/login/",
+    "origin": "https://upstream-b.example.com:1443",
+    "cookie": "",
+    "cache_buster": true,
+
+    // 可选。上游 DNS 可能返回不可达地址时填写可用 IPv4。
+    // 请求仍使用原域名作为 Host 和 TLS SNI，不会绕开证书校验。
+    "resolve_ips": [
+      "192.0.2.10"
+    ]
+  }
+}

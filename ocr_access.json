@@ -1,0 +1,41 @@
+{
+  "caller_domain_whitelist_enabled": false,
+  "caller_allowed_domains": [
+    "client-a.example.com",
+    "client-b.example.com",
+    "api.client-c.example.com",
+    "service.client-d.example.com",
+    "test.client-e.example.com"
+  ],
+  "allow_private_ips": false,
+  "request_timeout_seconds": 10,
+  "max_upstream_bytes": 5242880,
+  "upstream_allowed_domains": [
+    "upstream-a.example.com",
+    "upstream-b.example.com"
+  ],
+  "upstream_allowed_ips": [],
+  "response_codes": {
+    "success": 200,
+    "invalid_request": 201,
+    "domain_denied": 203,
+    "service_error": 205
+  },
+  "helipay": {
+    "url": "https://upstream-a.example.com/api/captcha",
+    "referer": "https://upstream-a.example.com/login",
+    "origin": "https://upstream-a.example.com",
+    "istoken": "false",
+    "cookie": ""
+  },
+  "ahrcu": {
+    "url": "https://upstream-b.example.com:1443/api/captcha",
+    "referer": "https://upstream-b.example.com:1443/login/",
+    "origin": "https://upstream-b.example.com:1443",
+    "cookie": "",
+    "cache_buster": true,
+    "resolve_ips": [
+      "192.0.2.10"
+    ]
+  }
+}
